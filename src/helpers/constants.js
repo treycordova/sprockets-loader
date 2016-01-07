@@ -1,3 +1,10 @@
+const logicalPaths = [
+  'app/assets/javascripts',
+  'app/assets/stylesheets',
+  'vendor/assets/javascripts',
+  'vendor/assets/stylesheets'
+];
+
 const comments = [
   /^\s*\*=\s/,
   /^\s*\/\/=\s/,
@@ -53,4 +60,5 @@ module.exports = {
   comments,
   directives,
   compats,
+  logicalPaths
 };

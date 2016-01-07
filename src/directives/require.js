@@ -2,9 +2,9 @@
 
 let resolve = require('../resolvers/resolve');
 
-module.exports = (location, directiveFile) => {
-  let resolutions = directiveFile.logicalPaths.map((logicalPath) => {
-    return resolve(logicalPath, location, directiveFile);
+module.exports = (location, metadata) => {
+  let resolutions = metadata.logicalPaths.map((logicalPath) => {
+    return resolve(logicalPath, location, metadata);
   });
 
   return resolutions.find((resolution) => {

@@ -3,11 +3,12 @@
 let path = require('path');
 let loaderUtils = require('loader-utils');
 
-let constants = require('./helpers/constants');
 let larser = require('./helpers/larser');
+let constants = require('./helpers/constants');
 let isSprocketsFile = require('./helpers/is-sprockets-file');
 let isSprocketsDirective = require('./helpers/is-sprockets-directive');
 let parseSprocketsLocation = require('./helpers/parse-sprockets-location');
+let generateSprocketsMetadata = require('./helpers/generate-sprockets-metadata');
 
 let directives = {
   require: require('./directives/require'),
@@ -16,29 +17,12 @@ let directives = {
 };
 
 module.exports = function(source) {
-  let options = loaderUtils.parseQuery(this.query);
-
-  let logicalPaths = [
-    'app/assets/javascripts',
-    'app/assets/stylesheets',
-    'vendor/assets/javascripts',
-    'vendor/assets/stylesheets'
-  ];
-
-  let directiveExtension = path.extname(this.resourcePath);
-  let directiveCompat = constants.compats[directiveExtension];
-  let directiveFile = {
-    compat: directiveCompat || {},
-    path: this.resourcePath,
-    logicalPaths: Array.from(
-      new Set(
-        (options.logicalPaths || []).concat(logicalPaths)
-      )
-    )
-  };
-
   if (isSprocketsFile(source)) {
+    let options = loaderUtils.parseQuery(this.query);
+    let metadata = generateSprocketsMetadata(this.resourcePath, options);
+
     let index = 0;
+    let requireSelf = false;
     let lines = source.split('\n');
     let modules = [];
 
@@ -48,10 +32,12 @@ module.exports = function(source) {
       if (isSprocketsDirective(line)) {
         let sprocket = parseSprocketsLocation(line);
 
-        if (sprocket && typeof directives[sprocket.directive] === 'function') {
+        if (sprocket && sprocket.directive === 'require_self') {
+          requireSelf = true;
+        } else if (sprocket && typeof directives[sprocket.directive] === 'function') {
           let moduleDialectWithPath = directives[sprocket.directive](
             sprocket.path,
-            directiveFile
+            metadata
           );
 
           if (moduleDialectWithPath) {
@@ -67,11 +53,12 @@ module.exports = function(source) {
       }
     }
 
-    if (modules.length) {
-      return `${modules.join('\n')}\n${lines.slice(index).join('\n')}`;
-    } else {
-      return lines.join('\n');
-    }
+    let requires = modules.join('\n');
+    let self = lines.slice(index).join('\n');
+
+    return requireSelf ?
+      `${requires}\n${self}` :
+      requires;
   } else {
     return source;
   }

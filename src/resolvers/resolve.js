@@ -45,22 +45,22 @@ function moduler(absolutePath, extension, resourcePath) {
   return `require('${relativePath}');`;
 }
 
-module.exports = (logicalPath, location, directiveFile) => {
+module.exports = (logicalPath, location, metadata) => {
   let resolvedPath = path.resolve(logicalPath, location);
   let extension = path.extname(resolvedPath);
 
-  if (hasCompatibleExtension(directiveFile.compat, extension)) {
+  if (hasCompatibleExtension(metadata.compat, extension)) {
     if (access(resolvedPath)) {
       return moduler(
         resolvedPath,
         extension,
-        directiveFile.path
+        metadata.path
       );
     }
   } else {
     let absolutePaths = [
-      directiveFile.compat.terminal,
-      ...(directiveFile.compat.extensions || [])
+      metadata.compat.terminal,
+      ...(metadata.compat.extensions || [])
     ].map((extension) => {
       return resolvedPath + extension;
     });
@@ -70,7 +70,7 @@ module.exports = (logicalPath, location, directiveFile) => {
         return moduler(
           absolutePath,
           path.extname(absolutePath),
-          directiveFile.path
+          metadata.path
         );
       }
     }
