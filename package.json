@@ -2,13 +2,13 @@
   "name": "sprockets-loader",
   "version": "0.1.0",
   "description": "",
-  "main": "application.js",
+  "main": "src/sprockets-loader",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf public/"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Trey Cordova",
+  "license": "MIT",
   "dependencies": {
     "coffee-loader": "^0.7.2",
     "css-loader": "^0.23.1",
