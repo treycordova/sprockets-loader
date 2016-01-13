@@ -45,14 +45,13 @@ function moduler(absolutePath, extension, resourcePath) {
   return `require('${relativePath}');`;
 }
 
-module.exports = (logicalPath, location, metadata) => {
-  let resolvedPath = path.resolve(logicalPath, location);
-  let extension = path.extname(resolvedPath);
+module.exports = (location, metadata) => {
+  let extension = path.extname(location);
 
   if (hasCompatibleExtension(metadata.compat, extension)) {
-    if (access(resolvedPath)) {
+    if (access(location)) {
       return moduler(
-        resolvedPath,
+        location,
         extension,
         metadata.path
       );
@@ -62,7 +61,7 @@ module.exports = (logicalPath, location, metadata) => {
       metadata.compat.terminal,
       ...(metadata.compat.extensions || [])
     ].map((extension) => {
-      return resolvedPath + extension;
+      return location + extension;
     });
 
     for (let absolutePath of absolutePaths) {

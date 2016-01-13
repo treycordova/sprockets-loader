@@ -1,13 +1,11 @@
 'use strict';
 
+let path = require('path');
 let resolve = require('../resolvers/resolve');
+let getResolutions = require('../helpers/get-resolutions');
 
 module.exports = (location, metadata) => {
-  let resolutions = metadata.logicalPaths.map((logicalPath) => {
-    return resolve(logicalPath, location, metadata);
-  });
-
-  return resolutions.find((resolution) => {
-    return resolution;
+  return getResolutions(location, metadata).find((resolution) => {
+    return resolve(resolution, metadata);
   });
 };

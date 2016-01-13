@@ -4,19 +4,18 @@ let fs = require('fs');
 let path = require('path');
 let resolve = require('./resolve');
 
-let resolveTree = module.exports = (logicalPath, location, metadata) => {
-  let absolutePath = path.resolve(logicalPath, location);
-
+let resolveTree = module.exports = (location, metadata) => {
   try {
-    let files = fs.readdirSync(absolutePath);
+    let files = fs.readdirSync(location);
 
     return files.map((file) => {
-      let stats = fs.statSync(path.resolve(absolutePath, file));
+      let resolvedPath = path.resolve(location, file);
+      let stats = fs.statSync(resolvedPath);
 
       if (stats.isDirectory()) {
-        return resolveTree(absolutePath, file, metadata);
+        return resolveTree(resolvedPath, metadata);
       } else {
-        return resolve(absolutePath, file, metadata);
+        return resolve(resolvedPath, metadata);
       }
     }).join('\n');
   } catch (error) {

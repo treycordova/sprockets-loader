@@ -3,6 +3,10 @@
   "version": "0.3.0",
   "description": "",
   "main": "src/sprockets-loader",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/treycordova/sprockets-loader.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf public/"
@@ -12,6 +16,7 @@
   "dependencies": {
     "coffee-loader": "^0.7.2",
     "css-loader": "^0.23.1",
+    "gemfile": "^1.0.0",
     "less": "^2.5.3",
     "less-loader": "^2.2.2",
     "loader-utils": "^0.2.12",
