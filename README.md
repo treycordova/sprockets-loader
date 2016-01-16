@@ -1,6 +1,11 @@
 ## Sprockets Loader
 #### A JavaScript, Webpack-enabled Rails Sprockets port.
 
+Bring Sprockets into JavaScript's realm. Features include:
+- Parses Sprockets directives, require, require_tree and require_directory.
+- Uses the same logical path file location resolution as Rails Sprockets.
+- Reads your Gemfile.lock, enabling Gem usage, like jquery-ujs.
+
 #### Installation
 `$ npm install sprockets-loader --save-dev`
 
@@ -8,8 +13,7 @@
 ```javascript
 module.exports = {
   entry: {
-    'application.js': './examples/application.js',
-    'application.css.js': './examples/application.css'
+    'application.js': './examples/application.js'
   },
   output: {
     path: 'public/assets',
