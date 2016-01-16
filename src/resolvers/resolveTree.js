@@ -17,7 +17,7 @@ let resolveTree = module.exports = (location, metadata) => {
       } else {
         return resolve(resolvedPath, metadata);
       }
-    }).join('\n');
+    });
   } catch (error) {
     return false;
   }

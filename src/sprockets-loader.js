@@ -24,6 +24,7 @@ module.exports = function(source) {
     let index = 0;
     let requireSelf = false;
     let lines = source.split('\n');
+    let cache = {};
     let modules = [];
 
     while (larser.insideCommentBlock(lines[index])) {
@@ -31,22 +32,29 @@ module.exports = function(source) {
 
       if (isSprocketsDirective(line)) {
         let sprocket = parseSprocketsLocation(line);
+        let isRequireSelf = sprocket && sprocket.directive === 'require_self';
+        let isValidDirective = sprocket && typeof directives[sprocket.directive] === 'function';
 
-        if (sprocket && sprocket.directive === 'require_self') {
+        if (isRequireSelf) {
           requireSelf = true;
-        } else if (sprocket && typeof directives[sprocket.directive] === 'function') {
-          let moduleDialectWithPath = directives[sprocket.directive](
-            sprocket.path,
-            metadata
-          );
+        } else if (isValidDirective) {
+          let directive = directives[sprocket.directive];
+          let requires = directive(sprocket.path, metadata);
 
-          if (moduleDialectWithPath) {
-            modules.push(moduleDialectWithPath);
+          if (Array.isArray(requires)) {
+            for (let module of requires) {
+              if (!cache[module]) {
+                cache[module] = true;
+                modules.push(module);
+              } else {
+                modules.push(`// ${module} is duplicative.`);
+              }
+            }
           } else {
-            throw new Error(`sprockets-loader: Missing file for (${this.resourcePath}:${index + 1}): ${line}`);
+            throw new Error(`sprockets-loader: Missing file for (${this.resourcePath}:${index}): ${line}`);
           }
         } else {
-          throw new Error(`sprockets-loader: Missing path for (${this.resourcePath}:${index + 1}): ${line}.`);
+          throw new Error(`sprockets-loader: Missing path for (${this.resourcePath}:${index}): ${line}.`);
         }
       } else {
         modules.push(larser.preserveComments(line));

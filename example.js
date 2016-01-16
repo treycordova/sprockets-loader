@@ -6,7 +6,7 @@ let sprockets = require('./src/sprockets-loader');
 
 module.exports = {
   entry: {
-    'application.js': './examples/application.js'
+    'application.js': './application.js'
   },
   output: {
     path: 'public/assets',
