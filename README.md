@@ -69,5 +69,5 @@ This repository uses the term `compat` to mean a base file type, such as `.js`.
 These compats can be found [here](https://github.com/treycordova/sprockets-loader/blob/master/src/helpers/constants.js).
 There are three components to create a complete `compat`:
 - `extensions`: Other file types that are compatible with the base file type.
-- `loaders`: What loaders are needed to interpret the base file compat, if encountered.
+- `loaders`: Order-dependent loaders that are needed to interpret the base file compat, if encountered.
 - `terminal`: What the _final_ file type should be, which can and in most cases **will** be different from the base file type.
