@@ -33,7 +33,7 @@ function preserveComments(line) {
   } else if (!/\*\//.test(line) && /^\s*\*/.test(line)) {
     return `/${line.trim()} */`;
   } else if (/\s*\/\/(.*)/.test(line) || /\s*#(.*)/.test(line)) {
-    return line
+    return line;
   } else {
     return '';
   }

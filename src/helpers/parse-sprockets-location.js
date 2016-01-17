@@ -4,7 +4,11 @@ let path = require('path');
 let constants = require('./constants');
 
 function location(comment, directive) {
-  return new RegExp(comment.source + '(' + directive.source + ')' + '(.*)');
+  if (/require_self/.test(directive.source)) {
+    return new RegExp(comment.source + '(require_self)$');
+  } else {
+    return new RegExp(comment.source + '(' + directive.source + ')' + '(.*)');
+  }
 };
 
 module.exports = (line) => {
@@ -23,6 +27,11 @@ module.exports = (line) => {
       return {
         directive: matches[1].trim(),
         path: matches[2].trim()
+      };
+    } else if (matches && matches[1] === 'require_self') {
+      return {
+        directive: matches[1].trim(),
+        path: null
       };
     }
   }

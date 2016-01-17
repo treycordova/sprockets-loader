@@ -1,14 +1,15 @@
 {
   "name": "sprockets-loader",
   "version": "0.3.0",
-  "description": "",
+  "description": "A JavaScript, Webpack-enabled Rails Sprockets port.",
   "main": "src/sprockets-loader",
   "repository": {
     "type": "git",
     "url": "https://github.com/treycordova/sprockets-loader.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --harmony test/**/*",
+    "watch": "mocha --harmony --watch test/**/*",
     "clean": "rm -rf public/"
   },
   "author": "Trey Cordova",
@@ -27,5 +28,11 @@
   },
   "engines": {
     "node": ">= 5.3"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
+    "rewire": "^2.5.1",
+    "sinon": "^1.17.2"
   }
 }

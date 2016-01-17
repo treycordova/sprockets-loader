@@ -8,8 +8,13 @@ let gemLogicalPaths = require('./gem-logical-paths');
 
 module.exports = (resourcePath, options) => {
   assert(
-    !options.logicalPaths || Array.isArray(options.logicalPaths),
-    'sprockets-loaders: logicalPaths must be an Array of Strings.'
+    typeof resourcePath === 'string',
+    'sprockets-loader: resourcePath must be a String.'
+  );
+
+  assert(
+    !options || !options.logicalPaths || Array.isArray(options.logicalPaths),
+    'sprockets-loader: logicalPaths must be an Array of Strings.'
   );
 
   let gemPaths = [];
@@ -37,7 +42,7 @@ module.exports = (resourcePath, options) => {
   }
 
   let logicalPaths = new Set(
-    (options.logicalPaths || []).
+    (options && options.logicalPaths || []).
       concat(constants.logicalPaths)
   );
 
