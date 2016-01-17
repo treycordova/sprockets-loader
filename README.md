@@ -1,4 +1,4 @@
-## Sprockets Loader
+## sprockets-loader [![Build Status](https://travis-ci.org/treycordova/sprockets-loader.svg?branch=master)](https://travis-ci.org/treycordova/sprockets-loader) [![Version Status](https://img.shields.io/npm/v/sprockets-loader.svg)](https://www.npmjs.org/package/sprockets-loader)
 #### A JavaScript, Webpack-enabled Rails Sprockets port.
 
 Bring Sprockets into JavaScript's realm. Features include:
