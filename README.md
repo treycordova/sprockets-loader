@@ -35,6 +35,9 @@ module.exports = {
 };
 ```
 
+#### Tests
+You can run tests with: `npm test` or `npm run watch`.
+
 #### Stylesheets?
 While `sprockets-loader` _can_ handle stylesheets, it is suggested that you do not use it for them.
 
