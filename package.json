@@ -1,6 +1,6 @@
 {
   "name": "sprockets-loader",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "A JavaScript, Webpack-enabled Rails Sprockets port.",
   "main": "src/sprockets-loader",
   "repository": {
