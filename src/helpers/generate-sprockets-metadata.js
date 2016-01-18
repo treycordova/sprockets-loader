@@ -35,6 +35,7 @@ module.exports = (resourcePath, options) => {
       }
     }
   } catch(error) {
+    console.error(error);
     console.info([
       'Did you know sprockets-loader can parse a Gemfile.lock?',
       'That means you can include your favorite Gems in your sprockets directives!'
