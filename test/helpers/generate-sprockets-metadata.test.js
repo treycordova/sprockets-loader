@@ -1,11 +1,28 @@
 'use strict';
 
+let path = require('path');
 let rewire = require('rewire');
 let sinon = require('sinon');
 let assert = require('chai').assert;
 let generateSprocketsMetadata = rewire('../../src/helpers/generate-sprockets-metadata');
 
 describe('generateSprocketsMetadata', function() {
+  let revert;
+
+  before(function() {
+    revert = generateSprocketsMetadata.__set__({
+      path: {
+        resolve: function() { return path.resolve(process.cwd(), 'test/fixtures/Gemfile.lock'); },
+        join: path.join,
+        extname: path.extname
+      }
+    });
+  });
+
+  after(function() {
+    revert();
+  });
+
   describe('invalid arguments', function() {
     it('throws when resourcePath is not passed', function() {
       assert.throws(function() {

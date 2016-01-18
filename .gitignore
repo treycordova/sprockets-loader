@@ -2,5 +2,5 @@ public
 node_modules
 .ruby-version
 Gemfile
-Gemfile.lock
+./Gemfile.lock
 application.js

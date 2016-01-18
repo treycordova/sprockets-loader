@@ -8,8 +8,8 @@
     "url": "https://github.com/treycordova/sprockets-loader.git"
   },
   "scripts": {
-    "test": "mocha --harmony test/**/*",
-    "watch": "mocha --harmony --watch test/**/*",
+    "test": "mocha --harmony test/**/*.test.js",
+    "watch": "mocha --harmony --watch test/**/*.test.js",
     "clean": "rm -rf public/"
   },
   "author": "Trey Cordova",
