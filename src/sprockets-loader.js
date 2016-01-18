@@ -17,6 +17,8 @@ let directives = {
 };
 
 module.exports = function(source) {
+  this.cacheable(true);
+
   if (isSprocketsFile(source)) {
     let options = loaderUtils.parseQuery(this.query);
     let metadata = generateSprocketsMetadata(this.resourcePath, options);
