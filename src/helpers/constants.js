@@ -13,7 +13,7 @@ const comments = [
 
 const directives = [
   /require\s/,
-  /require_self\s/,
+  /require_self/,
   /require_tree\s/,
   /require_directory\s/
 ];

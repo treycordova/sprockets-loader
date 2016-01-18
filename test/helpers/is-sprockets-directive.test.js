@@ -33,8 +33,9 @@ describe('isSprocketsDirective', function() {
       });
 
       it('returns true with a complete, valid Sprockets directive', function() {
+        assert.isTrue(isSprocketsDirective('//= require_self'));
         assert.isTrue(isSprocketsDirective('//= require ./something'));
-        assert.isTru;(isSprocketsDirective('//= require_tree ./something'));
+        assert.isTrue(isSprocketsDirective('//= require_tree ./something'));
         assert.isTrue(isSprocketsDirective('//= require_directory ./something'));
       });
     });

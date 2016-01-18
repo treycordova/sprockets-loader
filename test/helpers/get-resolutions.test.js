@@ -3,7 +3,7 @@
 let assert = require('chai').assert;
 let getResolutions = require('../../src/helpers/get-resolutions');
 
-describe.only('getResolutions', function() {
+describe('getResolutions', function() {
   it('is a function', function() {
     assert.isFunction(getResolutions);
   });
