@@ -9,7 +9,10 @@ function access(absolutePath) {
     fs.accessSync(absolutePath, fs.R_OK);
     return true;
   } catch (error) {
-    if (error.code !== 'ENOENT' || error.syscall !== 'access') {
+    if (
+      (error.code !== 'ENOENT' || error.syscall !== 'access') &&
+      error.code !== 'ENOTDIR'
+    ) {
       return console.error(error.stack);
     }
 
